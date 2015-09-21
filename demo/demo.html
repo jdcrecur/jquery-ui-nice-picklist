@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>jquery ui nice picklist demo</title>
+
+		<!-- Including the jquery js and css from their CDN -->
+		<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+		<!-- Including nice picklist -->
+		<script src="../dist/jquery-ui-nice-picklist.js"></script>
+		<link href="../dist/jquery-ui-nice-picklist.css" rel="stylesheet" type="text/css" />
+
+		<!-- Demo use -->
+		<script>
+			function demoSaveFunction(){
+				var $attrListContainer = $('form select');
+				$attrListContainer.empty();
+				//add in the new values for the select box based on the sortable lists
+				//(leaving out the headers of course)
+				$('#sortable1 li:not(.heading)').each(function(){
+					var $option = $('<option>').val( $(this).attr('attribute_name')).text( $(this).text() );
+					$option.attr('selected', 1);
+					$attrListContainer.append($option);
+				});
+				$('#sortable2 li:not(.heading)').each(function(){
+					var $option = $('<option>').val( $(this).attr('attribute_name')).text( $(this).text() );
+					$attrListContainer.append($option);
+				});
+				//Now just remove the previous sortable list
+				$('.sortableList').remove();
+				//and rebuild based on the new select box values
+				jqueryUINicePicklist.setup();
+			}
+			//kick the whole thing off
+			jqueryUINicePicklist.setup();
+		</script>
+	</head>
+	<body>
+		<h2>Reorder the lists and press save.</h2>
+		<form>
+			<select name="attribute_list[]" class=".attribute-list hide" multiple="">
+				<option selected="selected" value="13">Power</option>
+				<option selected="selected" value="14">Reliance</option>
+				<option selected="selected" value="16">Design</option>
+				<option selected="selected" value="7">Mechanical Strength</option>
+				<option selected="selected" value="11">Build Quality</option>
+				<option selected="selected" value="8">Cost</option>
+				<option selected="selected" value="4">Fuel Efficiency</option>
+				<option value="1">Ride Comfort</option>
+				<option value="2">Electrical Windows</option>
+				<option value="5">Electrical Seat</option>
+				<option value="6">Pointless Sporty Tyres</option>
+				<option value="15">Pointless sporty bucket seats</option>
+			</select>
+			<input type="button" onclick="demoSaveFunction()" value="Save"/>
+		</form>
+	</body>
+</html>
